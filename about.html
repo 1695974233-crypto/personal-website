@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="关于我 - 个人介绍">
+    <title>关于我 - 我的个人主页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #ffffff;
+            --foreground: #171717;
+            --muted: #f5f5f5;
+            --secondary: #fafafa;
+            --card: #ffffff;
+            --border: #e5e5e5;
+            --muted-foreground: #737373;
+            --primary: #4f46e5;
+            --primary-foreground: #ffffff;
+            --ring: #4f46e5;
+            --radius-lg: 8px;
+            --radius-xl: 16px;
+            --radius-4xl: 32px;
+        }
+
+        [data-theme="dark"] {
+            --background: #0a0a0a;
+            --foreground: #ededed;
+            --muted: #1a1a1a;
+            --secondary: #141414;
+            --card: #111111;
+            --border: #262626;
+            --muted-foreground: #a1a1a1;
+            --primary: #6366f1;
+            --primary-foreground: #ffffff;
+            --ring: #6366f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+                "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .font-mono {
+            font-family: "JetBrains Mono", ui-monospace, monospace;
+        }
+
+        /* ===== 顶栏 ===== */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+            background: color-mix(in srgb, var(--background) 90%, transparent);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.01em;
+            text-decoration: none;
+            color: var(--foreground);
+        }
+
+        .logo-mark {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--foreground);
+            color: var(--background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 14px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--muted-foreground);
+            text-decoration: none;
+            transition: color 0.15s ease, background-color 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--foreground);
+            background: color-mix(in srgb, var(--muted) 60%, transparent);
+        }
+
+        .nav-links a.active {
+            color: var(--foreground);
+        }
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 9999px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+            margin-left: 4px;
+        }
+
+        .theme-toggle:hover {
+            color: var(--foreground);
+            background: var(--muted);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .theme-toggle .icon-sun { display: none; }
+        [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+        [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+        .hamburger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 9999px;
+            border: 1px solid var(--border);
+            background: transparent;
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 16px;
+            height: 1.5px;
+            background: var(--foreground);
+            transition: transform 0.2s ease;
+        }
+
+        /* ===== 通用容器 ===== */
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== 页头 ===== */
+        .page-hero {
+            padding: 88px 0 56px;
+            text-align: center;
+        }
+
+        .page-hero .pill {
+            display: inline-flex;
+            align-items: center;
+            height: 28px;
+            padding: 0 12px;
+            border-radius: 9999px;
+            border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--muted-foreground);
+            margin-bottom: 16px;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(36px, 6vw, 56px);
+            line-height: 1.05;
+            font-weight: 400;
+            letter-spacing: -0.03em;
+        }
+
+        .page-hero p {
+            max-width: 520px;
+            margin: 14px auto 0;
+            font-size: 16px;
+            color: var(--muted-foreground);
+        }
+
+        /* ===== 分区 ===== */
+        .about-section {
+            padding: 48px 0;
+            border-top: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+        }
+
+        .about-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 6px;
+        }
+
+        .about-section .subtitle {
+            font-size: 14px;
+            color: var(--muted-foreground);
+            margin-bottom: 24px;
+        }
+
+        /* ===== 占位内容 ===== */
+        .placeholder-box {
+            border: 1.5px dashed var(--border);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            min-height: 120px;
+            text-align: left;
+            color: var(--muted-foreground);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ===== 可编辑内容 ===== */
+        [contenteditable="true"] {
+            outline: none;
+            cursor: text;
+            border-radius: 8px;
+            transition: box-shadow 0.15s ease, background-color 0.15s ease;
+        }
+
+        [contenteditable="true"]:hover {
+            background: color-mix(in srgb, var(--primary) 4%, transparent);
+        }
+
+        [contenteditable="true"]:focus {
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 18%, transparent);
+            background: color-mix(in srgb, var(--primary) 5%, transparent);
+        }
+
+        [contenteditable="true"]:empty::before {
+            content: attr(data-placeholder);
+            color: color-mix(in srgb, var(--muted-foreground) 55%, transparent);
+            pointer-events: none;
+        }
+
+        .edit-hint {
+            margin-top: 24px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: color-mix(in srgb, var(--primary) 8%, transparent);
+            border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+            border-radius: var(--radius-xl);
+            font-size: 13px;
+            color: var(--muted-foreground);
+        }
+
+        .reset-btn {
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+            background: var(--background);
+            color: var(--foreground);
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .reset-btn:hover {
+            background: var(--muted);
+        }
+
+        #saveToast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--foreground);
+            color: var(--background);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-size: 13px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 100;
+        }
+
+        #saveToast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ===== 基本信息 ===== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 16px 18px;
+        }
+
+        .info-item .key {
+            font-size: 12px;
+            color: var(--muted-foreground);
+        }
+
+        .info-item .value {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--muted-foreground);
+        }
+
+        /* ===== 时间线（工作经历 / 教育背景） ===== */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 18px 20px;
+        }
+
+        .timeline-item .period {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            color: var(--muted-foreground);
+            white-space: nowrap;
+            padding-top: 3px;
+            min-width: 110px;
+        }
+
+        .timeline-item .detail {
+            flex: 1;
+        }
+
+        .timeline-item .detail h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--muted-foreground);
+        }
+
+        .timeline-item .detail .org {
+            font-size: 13px;
+            color: var(--muted-foreground);
+            margin-top: 2px;
+        }
+
+        .timeline-item .detail p {
+            font-size: 14px;
+            color: var(--muted-foreground);
+            margin-top: 8px;
+        }
+
+        /* ===== 标签 ===== */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            border: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--muted-foreground);
+            background: var(--background);
+        }
+
+        .chips-editable {
+            min-height: 52px;
+            padding: 12px 14px;
+            border: 1.5px dashed var(--border);
+            border-radius: var(--radius-xl);
+            align-items: center;
+            color: var(--foreground);
+            font-size: 14px;
+        }
+
+        /* ===== 页脚 ===== */
+        footer {
+            border-top: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-foreground);
+        }
+
+        footer a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--foreground);
+        }
+
+        /* ===== 出现动画 ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                flex-direction: column;
+                align-items: stretch;
+                background: var(--background);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-xl);
+                padding: 12px;
+                gap: 4px;
+                width: min(80%, 320px);
+                transition: right 0.25s ease;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            }
+
+            .nav-links.active { right: 16px; }
+            .nav-links a { padding: 12px 14px; }
+            .hamburger { display: flex; }
+
+            .info-grid { grid-template-columns: 1fr; }
+            .timeline-item { flex-direction: column; gap: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶栏 -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-mark">名</span>
+                我的主页
+            </a>
+            <div class="nav-wrap">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="about.html" class="active">关于</a></li>
+                    <li><a href="https://www.woshipm.com/u/1685120" target="_blank" rel="noopener">人人都是产品经理</a></li>
+                    <li><a href="index.html#skills">技能</a></li>
+                    <li><a href="index.html#projects">项目</a></li>
+                    <li><a href="index.html#contact">联系</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                    </svg>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="菜单">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="edit-hint">
+                <span>✏️ 点击下方内容即可直接编辑，修改会自动保存在本浏览器。</span>
+                <button type="button" id="resetBtn" class="reset-btn">恢复默认</button>
+            </div>
+        </div>
+
+        <!-- 页头 -->
+        <section class="page-hero">
+            <span class="pill">关于我</span>
+            <h1>你好，我是<strong contenteditable="true" data-key="hero-name" data-singleline data-placeholder="你的名字"></strong></h1>
+            <p contenteditable="true" data-key="hero-intro" data-placeholder="这里是我的个人介绍页面，欢迎了解我。"></p>
+        </section>
+
+        <!-- 个人简介 -->
+        <section class="about-section" id="intro">
+            <div class="container reveal">
+                <h2>个人简介</h2>
+                <p class="subtitle">用一段话介绍自己是谁、在做什么、追求什么。</p>
+                <div class="placeholder-box" contenteditable="true" data-key="intro" data-placeholder="点击这里，填写个人简介内容……"></div>
+            </div>
+        </section>
+
+        <!-- 基本信息 -->
+        <section class="about-section" id="basic-info">
+            <div class="container reveal">
+                <h2>基本信息</h2>
+                <p class="subtitle">姓名、职位、所在地、联系方式等基础资料。</p>
+                <!-- TODO: 在下方 value 中填写真实信息 -->
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="key">姓名</span>
+                        <span class="value" contenteditable="true" data-key="info-name" data-singleline data-placeholder="待补充"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="key">职位</span>
+                        <span class="value" contenteditable="true" data-key="info-title" data-singleline data-placeholder="待补充"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="key">所在地</span>
+                        <span class="value" contenteditable="true" data-key="info-location" data-singleline data-placeholder="待补充"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="key">邮箱</span>
+                        <span class="value" contenteditable="true" data-key="info-email" data-singleline data-placeholder="待补充"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作经历 -->
+        <section class="about-section" id="experience">
+            <div class="container reveal">
+                <h2>工作经历</h2>
+                <p class="subtitle">按时间顺序列出主要工作或项目经历。</p>
+                <!-- TODO: 复制下方 timeline-item 结构添加更多经历 -->
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="period" contenteditable="true" data-key="exp1-period" data-singleline data-placeholder="20XX – 至今"></span>
+                        <div class="detail">
+                            <h3 contenteditable="true" data-key="exp1-title" data-singleline data-placeholder="职位名称"></h3>
+                            <div class="org" contenteditable="true" data-key="exp1-org" data-singleline data-placeholder="公司 / 组织名称"></div>
+                            <p contenteditable="true" data-key="exp1-desc" data-placeholder="职责与成果描述"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 教育背景 -->
+        <section class="about-section" id="education">
+            <div class="container reveal">
+                <h2>教育背景</h2>
+                <p class="subtitle">学校、专业、学历与就读时间。</p>
+                <!-- TODO: 复制下方 timeline-item 结构添加更多教育经历 -->
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="period" contenteditable="true" data-key="edu1-period" data-singleline data-placeholder="20XX – 20XX"></span>
+                        <div class="detail">
+                            <h3 contenteditable="true" data-key="edu1-title" data-singleline data-placeholder="专业名称"></h3>
+                            <div class="org" contenteditable="true" data-key="edu1-org" data-singleline data-placeholder="学校名称"></div>
+                            <p contenteditable="true" data-key="edu1-desc" data-placeholder="学历 / 学位"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 专业技能 -->
+        <section class="about-section" id="skills">
+            <div class="container reveal">
+                <h2>专业技能</h2>
+                <p class="subtitle">列出你擅长的技能或工具。</p>
+                <!-- 点击下方输入技能，用逗号分隔 -->
+                <div class="chips chips-editable" contenteditable="true" data-key="skills" data-placeholder="点击输入技能，用逗号分隔，例如：React，Python，产品设计"></div>
+            </div>
+        </section>
+
+        <!-- 兴趣爱好 -->
+        <section class="about-section" id="interests">
+            <div class="container reveal">
+                <h2>兴趣爱好</h2>
+                <p class="subtitle">工作之外，你喜欢做什么。</p>
+                <!-- 点击下方输入兴趣爱好，用逗号分隔 -->
+                <div class="chips chips-editable" contenteditable="true" data-key="interests" data-placeholder="点击输入兴趣爱好，用逗号分隔，例如：阅读，摄影，旅行"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 我的个人主页 · <a href="index.html">返回首页</a></p>
+    </footer>
+
+    <script>
+        // 主题切换
+        const themeToggle = document.getElementById('themeToggle');
+        const root = document.documentElement;
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            root.setAttribute('data-theme', savedTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            root.setAttribute('data-theme', 'dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const current = root.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
+        // 移动端菜单
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // 出现动画
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ===== 可编辑内容：自动保存到本浏览器 =====
+        const STORAGE_PREFIX = 'about:';
+
+        document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+            const key = el.dataset.key;
+            if (!key) return;
+
+            // 恢复已保存内容
+            const saved = localStorage.getItem(STORAGE_PREFIX + key);
+            if (saved !== null) {
+                el.innerHTML = saved;
+            }
+
+            // 保存修改
+            el.addEventListener('input', () => {
+                localStorage.setItem(STORAGE_PREFIX + key, el.innerHTML);
+                showToast('已保存');
+            });
+        });
+
+        // 单行字段：回车结束编辑；粘贴仅保留纯文本
+        document.querySelectorAll('[contenteditable="true"][data-singleline]').forEach(el => {
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    el.blur();
+                }
+            });
+            el.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+                document.execCommand('insertText', false, text);
+            });
+        });
+
+        // 恢复默认
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                if (!confirm('确定要清除你填写的内容，恢复为默认状态吗？')) return;
+                document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+                    const key = el.dataset.key;
+                    if (!key) return;
+                    localStorage.removeItem(STORAGE_PREFIX + key);
+                    el.innerHTML = '';
+                });
+                showToast('已恢复默认');
+            });
+        }
+
+        // 保存提示
+        let toastTimer;
+        function showToast(msg) {
+            let toast = document.getElementById('saveToast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'saveToast';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 1500);
+        }
+    </script>
+</body>
+</html>
