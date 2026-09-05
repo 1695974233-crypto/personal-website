@@ -362,8 +362,16 @@
         .info-item .value {
             font-size: 15px;
             font-weight: 500;
-            color: var(--muted-foreground);
+            color: var(--foreground);
+            overflow-wrap: anywhere;
         }
+
+        .info-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .info-item a:hover { color: var(--primary); }
 
         /* ===== 时间线（工作经历 / 教育背景） ===== */
         .timeline {
@@ -411,6 +419,39 @@
             font-size: 14px;
             color: var(--muted-foreground);
             margin-top: 8px;
+        }
+
+        .resume-card {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 22px 24px;
+        }
+
+        .resume-list {
+            display: grid;
+            gap: 10px;
+            padding-left: 20px;
+            color: var(--muted-foreground);
+            font-size: 14px;
+        }
+
+        .resume-list strong {
+            color: var(--foreground);
+            font-weight: 500;
+        }
+
+        .timeline-item .detail h3 { color: var(--foreground); }
+
+        .timeline-item .resume-list {
+            margin-top: 14px;
+        }
+
+        .resume-subtitle {
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 16px;
+            margin-bottom: 8px;
         }
 
         /* ===== 标签 ===== */
@@ -495,6 +536,7 @@
 
             .info-grid { grid-template-columns: 1fr; }
             .timeline-item { flex-direction: column; gap: 6px; }
+            .resume-card { padding: 20px; }
         }
     </style>
 </head>
@@ -509,10 +551,10 @@
             </a>
             <div class="nav-wrap">
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="about.html" class="active">关于</a></li>
+                    <li><a href="about.html" class="active">关于我</a></li>
                     <li><a href="https://www.woshipm.com/u/1685120" target="_blank" rel="noopener">人人都是产品经理</a></li>
-                    <li><a href="index.html#skills">技能</a></li>
-                    <li><a href="index.html#projects">项目</a></li>
+                    <li><a href="index.html#skills">产品</a></li>
+                    <li><a href="index.html#projects">文章</a></li>
                     <li><a href="index.html#contact">联系</a></li>
                 </ul>
                 <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
@@ -532,111 +574,173 @@
     </header>
 
     <main>
-        <div class="container">
-            <div class="edit-hint">
-                <span>✏️ 点击下方内容即可直接编辑，修改会自动保存在本浏览器。</span>
-                <button type="button" id="resetBtn" class="reset-btn">恢复默认</button>
-            </div>
-        </div>
-
-        <!-- 页头 -->
         <section class="page-hero">
             <span class="pill">关于我</span>
-            <h1>你好，我是<strong contenteditable="true" data-key="hero-name" data-singleline data-placeholder="你的名字"></strong></h1>
-            <p contenteditable="true" data-key="hero-intro" data-placeholder="这里是我的个人介绍页面，欢迎了解我。"></p>
+            <h1>李嘉昂</h1>
+            <p>AI 产品经理｜聚焦智能制造业务与 AI 产品从 0 到 1 落地</p>
         </section>
 
-        <!-- 个人简介 -->
-        <section class="about-section" id="intro">
-            <div class="container reveal">
-                <h2>个人简介</h2>
-                <p class="subtitle">用一段话介绍自己是谁、在做什么、追求什么。</p>
-                <div class="placeholder-box" contenteditable="true" data-key="intro" data-placeholder="点击这里，填写个人简介内容……"></div>
-            </div>
-        </section>
-
-        <!-- 基本信息 -->
         <section class="about-section" id="basic-info">
             <div class="container reveal">
                 <h2>基本信息</h2>
-                <p class="subtitle">姓名、职位、所在地、联系方式等基础资料。</p>
-                <!-- TODO: 在下方 value 中填写真实信息 -->
+                <p class="subtitle">个人资料与联系方式</p>
                 <div class="info-grid">
                     <div class="info-item">
                         <span class="key">姓名</span>
-                        <span class="value" contenteditable="true" data-key="info-name" data-singleline data-placeholder="待补充"></span>
+                        <span class="value">李嘉昂</span>
                     </div>
                     <div class="info-item">
                         <span class="key">职位</span>
-                        <span class="value" contenteditable="true" data-key="info-title" data-singleline data-placeholder="待补充"></span>
+                        <span class="value">AI 产品经理</span>
                     </div>
                     <div class="info-item">
-                        <span class="key">所在地</span>
-                        <span class="value" contenteditable="true" data-key="info-location" data-singleline data-placeholder="待补充"></span>
+                        <span class="key">状态</span>
+                        <span class="value">离职</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="key">出生年月</span>
+                        <span class="value">2001/07</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="key">电话</span>
+                        <span class="value"><a href="tel:17613293519">17613293519</a></span>
                     </div>
                     <div class="info-item">
                         <span class="key">邮箱</span>
-                        <span class="value" contenteditable="true" data-key="info-email" data-singleline data-placeholder="待补充"></span>
+                        <span class="value"><a href="mailto:1695974233@qq.com">1695974233@qq.com</a></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="key">GitHub</span>
+                        <span class="value"><a href="https://github.com/1695974233-crypto" target="_blank" rel="noopener">github.com/1695974233-crypto</a></span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 工作经历 -->
+        <section class="about-section" id="strengths">
+            <div class="container reveal">
+                <h2>个人优势</h2>
+                <p class="subtitle">业务洞察、AI 方案、评测迭代与产品交付</p>
+                <div class="resume-card">
+                    <ul class="resume-list">
+                        <li><strong>智能制造业务洞察：</strong>近 3 年聚焦治具设计场景，能够深入工程师作业流程识别高重复、强规则、可量化的 AI 机会，负责 3 款企业内部效率工具从需求定义到上线应用。</li>
+                        <li><strong>AI 方案与人机协同：</strong>能够围绕业务目标完成产品架构、AI 方案和人机协同设计，合理划分 Workflow、Agent、RAG、规则引擎与人工复核的职责边界。</li>
+                        <li><strong>评测验收与迭代：</strong>具备评测指标、测试样本和 Bad Case 闭环建设经验，能够将准确率、结果完整性、响应效率等指标转化为产品验收与迭代依据。</li>
+                        <li><strong>跨团队交付与企业落地：</strong>能够协调业务主管、工程师、研发和测试推进开发、验收、上线与推广，累计覆盖 50 名内部用户并取得可量化的效率与质量提升。</li>
+                        <li><strong>ToC 产品从 0 到 1：</strong>负责 2 款 ToC AI 产品从 0 到 1 并公开上线，覆盖多模态识别、个性化推荐与 AIGC 创作场景，具备冷启动和用户反馈驱动迭代经验。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <section class="about-section" id="experience">
             <div class="container reveal">
                 <h2>工作经历</h2>
-                <p class="subtitle">按时间顺序列出主要工作或项目经历。</p>
-                <!-- TODO: 复制下方 timeline-item 结构添加更多经历 -->
+                <p class="subtitle">企业 AI 产品规划、设计、评测与上线交付经历</p>
                 <div class="timeline">
-                    <div class="timeline-item">
-                        <span class="period" contenteditable="true" data-key="exp1-period" data-singleline data-placeholder="20XX – 至今"></span>
+                    <article class="timeline-item">
+                        <span class="period">2023/07 - 2026/05</span>
                         <div class="detail">
-                            <h3 contenteditable="true" data-key="exp1-title" data-singleline data-placeholder="职位名称"></h3>
-                            <div class="org" contenteditable="true" data-key="exp1-org" data-singleline data-placeholder="公司 / 组织名称"></div>
-                            <p contenteditable="true" data-key="exp1-desc" data-placeholder="职责与成果描述"></p>
+                            <h3>AI 产品经理</h3>
+                            <div class="org">富士康科技集团 · IPEBG</div>
+                            <p>所在 IPEBG 治具设计业务团队服务内部智能制造场景，负责 3D 制图、模型检查和 BOM 生成方向的 AI 产品规划与交付，协同治具设计工程师、业务主管、研发和测试团队，推动业务流程从人工操作向智能辅助转型。</p>
+                            <ul class="resume-list">
+                                <li><strong>业务洞察与产品规划：</strong>深入治具设计作业现场，拆解 3D 制图、模型检查和 BOM 填写流程，结合业务价值、规则可枚举性和技术可行性识别 AI 产品机会，制定产品路线图与阶段目标，负责 3 款内部效率工具立项落地。</li>
+                                <li><strong>AI 方案与产品设计：</strong>负责需求分析、产品架构、业务流程、原型及 PRD 设计，结合视觉识别、规则引擎、RAG 与固定工作流制定解决方案，明确 AI 自动处理、异常拒绝与人工复核的职责边界。</li>
+                                <li><strong>评测验收与迭代优化：</strong>围绕准确率、冗余标注、处理时长和结果完整性建立验收指标，组织业务样本测试与 Bad Case 分析，协同研发持续优化识别规则、知识库、模型配置和交互流程。</li>
+                                <li><strong>跨团队交付与业务结果：</strong>协调工程师、业务主管、研发和测试资源推进开发、验收、上线与推广；3D 制图时间缩短 50%、尺寸标注准确率达到 65%，模型检查问题发生率降低 20%、BOM 填写时间减少 30%，累计覆盖 50 名内部用户。</li>
+                            </ul>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- 教育背景 -->
+        <section class="about-section" id="projects">
+            <div class="container reveal">
+                <h2>项目经历</h2>
+                <p class="subtitle">企业效率工具与 ToC AI 产品从 0 到 1 实践</p>
+                <div class="timeline">
+                    <article class="timeline-item">
+                        <span class="period">2024/08 - 2026/05</span>
+                        <div class="detail">
+                            <h3>智绘 ZhiDraw（3D 工程图智能生成平台）</h3>
+                            <div class="org">项目负责人</div>
+                            <p>针对治具设计工程师将 3D 模型转换为 2D 工程图时制图周期长、质量一致性不足的问题，负责产品规划、AI 方案设计、评测验收与上线交付，建设融合几何计算、工程知识与人工复核的工程图智能生成平台。</p>
+                            <h4 class="resume-subtitle">核心职责</h4>
+                            <ol class="resume-list">
+                                <li><strong>场景拆解与首期产品定义：</strong>访谈 10 名治具设计工程师并回收 35 份问卷，梳理 3D 转 2D 全流程，识别视图生成、基准选择、尺寸标注与人工校核等高价值场景，明确首期产品范围、产品边界和验收标准。</li>
+                                <li><strong>AI 工作流与知识增强：</strong>主导工程知识 RAG 产品从需求定义、方案设计到上线应用的全流程建设，推动 Embedding 模型选型，设计多路召回与 Rerank 策略，持续基于用户反馈及问答 Bad Case 优化召回准确率与回答可信度。</li>
+                                <li><strong>Agent 决策与人机协同：</strong>围绕“生成可复核工程图”目标设计 Agent 的任务规划与工具调用机制，并在置信不足或规则冲突时触发人工确认，将复核结论回写任务上下文与 Bad Case 库。</li>
+                                <li><strong>评测体系与产品迭代：</strong>围绕尺寸标注质量、结果完整性与生成效率搭建产品评测体系，组织样本测试与 Bad Case 验收，协同研发持续优化规则与工作流。</li>
+                            </ol>
+                            <h4 class="resume-subtitle">项目成果</h4>
+                            <ul class="resume-list">
+                                <li>完成 STEP/STP 单零件制图产品本地化上线，支持标准工程视图生成及 DWG、PDF、JSON 输出，完成工程知识 RAG 与 Agent 能力的产品化落地。</li>
+                                <li>通过规则约束与 Bad Case 迭代，将尺寸标注准确率由 20%-30% 提升至 65%。</li>
+                                <li>单项目 2D 绘图时间由约 2 小时缩短至 1 小时，制图效率提升 50%，覆盖 50 名内部用户。</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="timeline-item">
+                        <span class="period">2026/05 - 至今</span>
+                        <div class="detail">
+                            <h3>易搭 Yida（AI 穿搭助手）</h3>
+                            <div class="org">产品负责人</div>
+                            <p>从 0 到 1 构建基于真实衣柜的 AI 穿搭助手，负责用户研究、产品方案、多模态识别、推荐评测与版本上线。</p>
+                            <h4 class="resume-subtitle">核心职责</h4>
+                            <ol class="resume-list">
+                                <li><strong>用户洞察与产品定义：</strong>规划衣物上传、AI 识别、衣柜管理、穿搭推荐、结果反馈与虚拟试穿 6 个核心环节，明确各环节的输入、输出及验收标准。</li>
+                                <li><strong>多模态识别与异常兜底：</strong>采用抠图模型与文本大模型串联完成白底单品提取及品类、颜色、风格、季节等标签生成，并提供失败重试与人工分类入口。</li>
+                                <li><strong>推荐策略与评测体系：</strong>设计“天气、季节、场景、脏衣状态硬过滤 + 风格与历史偏好生成”的固定推荐工作流，围绕 5 个维度建立评测标准并构建 6 类 Golden Set。</li>
+                                <li><strong>冷启动与迭代闭环：</strong>组织首批用户体验测试，优化移动端保存、生成效率、穿搭去重与反馈链路，完成国内云服务迁移和公开版本发布。</li>
+                            </ol>
+                            <h4 class="resume-subtitle">项目成果</h4>
+                            <ul class="resume-list">
+                                <li>公开上线 v1.0，落地数字衣柜、智能穿搭、虚拟试穿与单件搭配 4 项核心功能。</li>
+                                <li>完成首批约 60 名用户冷启动，约 50 名用户上传约 1600 件衣物并生成 130 次推荐，以 6 类 Golden Set 支撑核心场景验收与版本回归。</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="timeline-item">
+                        <span class="period">2026/07 - 至今</span>
+                        <div class="detail">
+                            <h3>拾光后期（AI 图片风格创作工具）</h3>
+                            <div class="org">产品负责人</div>
+                            <p>面向有风格化创作需求的摄影爱好者，从 0 到 1 构建 AI 图片风格创作工具，负责产品规划、模型方案、质量评测与版本上线。</p>
+                            <h4 class="resume-subtitle">核心职责</h4>
+                            <ol class="resume-list">
+                                <li><strong>创作场景与产品链路：</strong>规划 10 种视觉创作场景，设计图片上传、场景选择、参数配置、结果生成、继续修改和下载的完整链路，明确输入规范、生成约束与质量验收标准。</li>
+                                <li><strong>模型选型与路由策略：</strong>围绕生成效果、稳定性、响应速度和调用成本开展模型对比，设计主模型、失败回退、提示词模板和参数默认值策略。</li>
+                                <li><strong>多模态评测与 Bad Case：</strong>从主体一致性、原图保真度、风格符合度、文字控制和人像光影等维度开展人工验收，定位主体丢失、照片重绘、擅自加字和补光失真等问题。</li>
+                                <li><strong>质量迭代与上线交付：</strong>重新明确真实影像保留与风格化处理的边界，采用原始影像与风格化元素分层合成方案，持续优化生成质量、结果稳定性与调用成本。</li>
+                            </ol>
+                            <h4 class="resume-subtitle">项目成果</h4>
+                            <ul class="resume-list">
+                                <li>产品公开上线，覆盖 10 种视觉创作场景，形成上传、生成、修改和下载闭环。</li>
+                                <li>完成首轮种子用户测试，43 名用户累计生成约 180 次，人均生成约 4 次。</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <section class="about-section" id="education">
             <div class="container reveal">
-                <h2>教育背景</h2>
-                <p class="subtitle">学校、专业、学历与就读时间。</p>
-                <!-- TODO: 复制下方 timeline-item 结构添加更多教育经历 -->
+                <h2>教育经历</h2>
+                <p class="subtitle">本科教育背景</p>
                 <div class="timeline">
-                    <div class="timeline-item">
-                        <span class="period" contenteditable="true" data-key="edu1-period" data-singleline data-placeholder="20XX – 20XX"></span>
+                    <article class="timeline-item">
+                        <span class="period">2019/09 - 2023/06</span>
                         <div class="detail">
-                            <h3 contenteditable="true" data-key="edu1-title" data-singleline data-placeholder="专业名称"></h3>
-                            <div class="org" contenteditable="true" data-key="edu1-org" data-singleline data-placeholder="学校名称"></div>
-                            <p contenteditable="true" data-key="edu1-desc" data-placeholder="学历 / 学位"></p>
+                            <h3>机械电子工程 · 本科</h3>
+                            <div class="org">北方民族大学</div>
                         </div>
-                    </div>
+                    </article>
                 </div>
-            </div>
-        </section>
-
-        <!-- 专业技能 -->
-        <section class="about-section" id="skills">
-            <div class="container reveal">
-                <h2>专业技能</h2>
-                <p class="subtitle">列出你擅长的技能或工具。</p>
-                <!-- 点击下方输入技能，用逗号分隔 -->
-                <div class="chips chips-editable" contenteditable="true" data-key="skills" data-placeholder="点击输入技能，用逗号分隔，例如：React，Python，产品设计"></div>
-            </div>
-        </section>
-
-        <!-- 兴趣爱好 -->
-        <section class="about-section" id="interests">
-            <div class="container reveal">
-                <h2>兴趣爱好</h2>
-                <p class="subtitle">工作之外，你喜欢做什么。</p>
-                <!-- 点击下方输入兴趣爱好，用逗号分隔 -->
-                <div class="chips chips-editable" contenteditable="true" data-key="interests" data-placeholder="点击输入兴趣爱好，用逗号分隔，例如：阅读，摄影，旅行"></div>
             </div>
         </section>
     </main>
