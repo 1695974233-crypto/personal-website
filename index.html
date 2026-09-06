@@ -534,73 +534,123 @@
 
         .education-card .resume-item-head { margin-bottom: 0; }
 
-        /* ===== 技能 ===== */
-        .skills-grid {
+        /* ===== 产品 ===== */
+        .products-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .product-showcase-card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-4xl);
+            overflow: hidden;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .product-showcase-card:hover {
+            transform: translateY(-4px);
+            border-color: color-mix(in srgb, var(--foreground) 22%, var(--border));
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-showcase-card a {
+            display: block;
+            height: 100%;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .product-cover {
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: var(--secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .product-cover img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+
+        .product-showcase-card:hover .product-cover img {
+            transform: scale(1.025);
+        }
+
+        .product-info {
+            padding: 24px 26px 26px;
+        }
+
+        .product-kicker {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 10px;
+            margin-bottom: 14px;
+            border-radius: 9999px;
+            background: color-mix(in srgb, var(--primary) 9%, transparent);
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .product-title-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
             gap: 16px;
         }
 
-        .skill-card {
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-xl);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            transition: background-color 0.2s ease, border-color 0.2s ease;
-        }
-
-        .skill-card:hover {
-            background: var(--muted);
-        }
-
-        .skill-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .skill-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: color-mix(in srgb, var(--primary) 10%, transparent);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .skill-level {
-            font-family: "JetBrains Mono", monospace;
-            font-size: 12px;
-            color: var(--muted-foreground);
-        }
-
-        .skill-card h3 {
-            font-size: 16px;
+        .product-title-row h3 {
+            font-size: 22px;
             font-weight: 600;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
         }
 
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 10px;
-            border-radius: 9999px;
+        .product-arrow {
+            flex: 0 0 auto;
+            display: grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
             border: 1px solid var(--border);
-            font-size: 12px;
+            border-radius: 9999px;
             color: var(--muted-foreground);
-            background: var(--background);
+            transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .product-showcase-card:hover .product-arrow {
+            color: var(--primary);
+            border-color: color-mix(in srgb, var(--primary) 35%, var(--border));
+            transform: translate(2px, -2px);
+        }
+
+        .product-description {
+            margin-top: 12px;
+            color: var(--muted-foreground);
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        .product-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            color: var(--muted-foreground);
+            font-size: 12px;
+        }
+
+        .product-meta::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
         }
 
         /* ===== 项目 ===== */
@@ -906,7 +956,6 @@
 
         /* ===== 响应式 ===== */
         @media (max-width: 1024px) {
-            .skills-grid { grid-template-columns: repeat(2, 1fr); }
             .projects-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
@@ -932,13 +981,13 @@
             .hamburger { display: flex; }
 
             .resume-overview { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: 1fr; }
             .projects-grid { grid-template-columns: 1fr; }
             .contact-card { padding: 32px 24px; }
             .hero { padding: 64px 0 48px; }
         }
 
         @media (max-width: 480px) {
-            .skills-grid { grid-template-columns: 1fr; }
             .resume-card,
             .experience-card,
             .project-card,
@@ -1059,61 +1108,42 @@
             <div class="section-head reveal">
                 <span class="pill">产品</span>
                 <h2>我的产品</h2>
-                <p>覆盖从产品设计到部署上线的完整开发链路。</p>
+                <p>从真实需求出发，持续打磨并公开上线的 AI 产品。</p>
             </div>
-            <div class="skills-grid">
-                <div class="skill-card reveal">
-                    <div class="skill-top">
-                        <div class="skill-icon">🌐</div>
-                        <span class="skill-level">90%</span>
-                    </div>
-                    <h3>前端开发</h3>
-                    <div class="skill-tags">
-                        <span class="chip">React</span>
-                        <span class="chip">Vue</span>
-                        <span class="chip">TypeScript</span>
-                        <span class="chip">Tailwind</span>
-                    </div>
-                </div>
-                <div class="skill-card reveal">
-                    <div class="skill-top">
-                        <div class="skill-icon">⚙️</div>
-                        <span class="skill-level">85%</span>
-                    </div>
-                    <h3>后端开发</h3>
-                    <div class="skill-tags">
-                        <span class="chip">Node.js</span>
-                        <span class="chip">Python</span>
-                        <span class="chip">Java</span>
-                        <span class="chip">Go</span>
-                    </div>
-                </div>
-                <div class="skill-card reveal">
-                    <div class="skill-top">
-                        <div class="skill-icon">🗄️</div>
-                        <span class="skill-level">85%</span>
-                    </div>
-                    <h3>数据库</h3>
-                    <div class="skill-tags">
-                        <span class="chip">MySQL</span>
-                        <span class="chip">PostgreSQL</span>
-                        <span class="chip">Redis</span>
-                        <span class="chip">MongoDB</span>
-                    </div>
-                </div>
-                <div class="skill-card reveal">
-                    <div class="skill-top">
-                        <div class="skill-icon">🚀</div>
-                        <span class="skill-level">88%</span>
-                    </div>
-                    <h3>工程化 & 部署</h3>
-                    <div class="skill-tags">
-                        <span class="chip">Git</span>
-                        <span class="chip">Docker</span>
-                        <span class="chip">CI/CD</span>
-                        <span class="chip">Linux</span>
-                    </div>
-                </div>
+            <div class="products-grid">
+                <article class="product-showcase-card reveal">
+                    <a href="https://sidcq5h51g43rsuddsnda.apigateway-cn-beijing.volceapi.com/" target="_blank" rel="noopener">
+                        <div class="product-cover">
+                            <img src="yida-product-cover.jpg" alt="易搭 Yida AI 穿搭助手产品界面" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <span class="product-kicker">AI 穿搭助手</span>
+                            <div class="product-title-row">
+                                <h3>易搭 Yida</h3>
+                                <span class="product-arrow" aria-hidden="true">↗</span>
+                            </div>
+                            <p class="product-description">基于真实衣柜提供衣物管理、智能穿搭、虚拟试穿与单件搭配，让日常穿搭建议更贴近天气、场景和个人偏好。</p>
+                            <div class="product-meta">公开体验版</div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="product-showcase-card reveal">
+                    <a href="https://sk9rtqqg06hvqm0nm4sl7.apigateway-cn-beijing.volceapi.com/" target="_blank" rel="noopener">
+                        <div class="product-cover">
+                            <img src="shiguang-product-cover.jpg" alt="拾光后期 AI 图片风格创作工具产品界面" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <span class="product-kicker">AI 图片创作</span>
+                            <div class="product-title-row">
+                                <h3>拾光后期</h3>
+                                <span class="product-arrow" aria-hidden="true">↗</span>
+                            </div>
+                            <p class="product-description">面向非专业用户的 AI 图片风格创作工具，用简单的场景选择完成风格化后期，同时保留真实影像的主体与质感。</p>
+                            <div class="product-meta">公开体验版</div>
+                        </div>
+                    </a>
+                </article>
             </div>
         </div>
     </section>
